@@ -1,18 +1,8 @@
-import UserList from './user-list.vue';
-// const UserList = {
-//     template: '<div>User Listing</div>'
-// };
 const UserBlank = { template: '<div></div>' };
-const UserView = {
-    props: ['id'],
-    template: `
-<div>
-    <h2>User Detail</h2>
-    user id: {{ $route.params.id }} vs {{ id }}
-</div>`
-};
-
-const title = 'User Management';
+const UserForm  = r => require.ensure([], () => r(require('./user-form.vue')), 'group-user');
+const UserList  = r => require.ensure([], () => r(require('./user-list.vue')), 'group-user');
+const UserView  = r => require.ensure([], () => r(require('./user-view.vue')), 'group-user');
+const title     = 'User Management';
 
 export default [
     {
@@ -20,6 +10,16 @@ export default [
         redirect: '/users/list',
         component: UserList,
         children: [
+            {
+                path: 'form/:id',
+                name: 'User Form',
+                component: UserForm,
+                meta: {
+                    breadcrumb: 'User Form',
+                    canActivate: true,
+                    title
+                }
+            },
             {
                 path: 'list',
                 name: 'User Listing',

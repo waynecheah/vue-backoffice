@@ -11,7 +11,7 @@
             li.navigationHeader
               span Main
             li.main(v-for='i in sideMenu', :class='{ active:i.expanded }')
-              a.rel(@click='toggleMainMenu(i)', :href='i.route')
+              a.rel(@click='toggleMainMenu(i)', :href='i.url')
                 .item.has-ripple
                   md-ink-ripple
                   v-icon(v-if='i.icon', left) {{ i.icon }}
@@ -23,7 +23,11 @@
               )
                 ul
                   li(v-for='j in i.children')
-                    a.sub.has-ripple(:href='j.route')
+                    router-link.sub.has-ripple(v-if='j.route', :to='j.route')
+                      md-ink-ripple
+                      span {{ j.name }}
+                    a.sub.has-ripple(v-else-if='j.url', :href='j.url')
+                      md-ink-ripple
                       span {{ j.name }}
 
       .pageContent
@@ -31,6 +35,8 @@
           a.menuIcon(@click='toggleSideMenu', href='#!')
             v-icon.text--darken-2 menu
         .contentWrapper
+          gl-breadcrumb
+          router-view
           p 1
           p 2
           p 3
@@ -77,15 +83,14 @@
 <script>
 import Vue from 'vue';
 import VueMaterial from 'vue-material';
-import VueRouter from 'vue-router';
 import Vuetify from 'vuetify';
 
 import glNavBar from './components/layout/navbar.vue';
+import glBreadcrumb from './components/shared/navigations/breadcrumb.vue';
 
 Vue.use(VueMaterial);
 //Vue.use(VueMaterial.mdSidenav);
 //Vue.use(VueMaterial.mdToolbar);
-Vue.use(VueRouter);
 Vue.use(Vuetify);
 
 Vue.directive('accordion', {
@@ -94,6 +99,8 @@ Vue.directive('accordion', {
     },
 
     update (el, binding, vnode) {
+        if (binding.value == binding.oldValue) return;
+
         if (binding.value) {
             el.style.position   = 'absolute';
             el.style.visibility = 'hidden';
@@ -119,6 +126,7 @@ export default {
     name: 'app',
 
     components: {
+        glBreadcrumb,
         glNavBar
     },
 
@@ -140,42 +148,42 @@ export default {
             sideMenu: [{
                 children: [{
                     name: 'Sub Menu 1.1',
-                    route: '#!'
+                    url: '#!'
                 }, {
                     name: 'Sub Menu 1.2',
-                    route: '#!'
+                    url: '#!'
                 }],
                 expanded: false,
                 icon: 'insert_emoticon',
                 name: 'Main Menu 1',
-                route: '#!'
+                url: '#!'
             }, {
                 children: [{
                     name: 'Sub Menu 2.1',
-                    route: '#!'
+                    url: '#!'
                 }, {
                     name: 'Sub Menu 2.2',
-                    route: '#!'
+                    url: '#!'
                 }],
                 expanded: false,
                 icon: 'supervisor_account',
                 name: 'Main Menu 2',
-                route: '#!'
+                url: '#!'
             }, {
                 children: [{
-                    name: 'Sub Menu 3.1',
-                    route: '#!'
+                    name: 'User 1',
+                    route: '/users/view/123'
                 }, {
-                    name: 'Sub Menu 3.2',
-                    route: '#!'
+                    name: 'User 2',
+                    route: '/users/view/456'
                 }, {
-                    name: 'Sub Menu 3.3',
-                    route: '#!'
+                    name: 'User List',
+                    route: '/users/list'
                 }],
                 expanded: false,
                 icon: 'account_circle',
-                name: 'Main Menu 3',
-                route: '#!'
+                name: 'User Mgt',
+                url: 'javascript:;'
             }],
             minibar: false,
             toggle: false,
@@ -213,6 +221,9 @@ export default {
 <style lang="sass">
 $headerHeight: 50px
 $sidebarWidth: 260px
+
+a:hover
+    text-decoration: none !important
 
 body.appBody
     background-color: #eeeded

@@ -81,17 +81,11 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import VueMaterial from 'vue-material';
-import Vuetify from 'vuetify';
+import Vue from 'vue'
 
-import glNavBar from './components/layout/navbar.vue';
-import glBreadcrumb from './components/shared/navigations/breadcrumb.vue';
+import glNavBar from './components/layout/navbar.vue'
+import glBreadcrumb from './components/shared/navigations/breadcrumb.vue'
 
-Vue.use(VueMaterial);
-//Vue.use(VueMaterial.mdSidenav);
-//Vue.use(VueMaterial.mdToolbar);
-Vue.use(Vuetify);
 
 Vue.directive('accordion', {
     bind (el, binding, vnode) {
@@ -171,14 +165,14 @@ export default {
                 url: '#!'
             }, {
                 children: [{
-                    name: 'User 1',
-                    route: '/users/view/123'
-                }, {
-                    name: 'User 2',
-                    route: '/users/view/456'
-                }, {
                     name: 'User List',
                     route: '/users/list'
+                }, {
+                    name: 'User Detail',
+                    route: '/users/view/123'
+                }, {
+                    name: 'User Form',
+                    route: '/users/form/456'
                 }],
                 expanded: false,
                 icon: 'account_circle',

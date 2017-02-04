@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import * as getters from './getters'
-import * as actions from './actions'
+import getters from './getters'
+import actions from './actions'
 import mutations from './mutations'
 import user from './modules/user'
 
@@ -10,7 +10,11 @@ Vue.use(Vuex);
 
 
 const state = {
-    colletions: {},
+    colletions: {
+        user: {
+            list: []
+        }
+    },
     count: 0
 };
 const modules = {
@@ -27,14 +31,14 @@ const store = new Vuex.Store({
 
 if (module.hot) {
     module.hot.accept([
-        // './getters',
-        // './actions',
+        './getters',
+        './actions',
         './mutations',
         './modules/user'
     ], () => {
         store.hotUpdate({
-            // getters: require('./getters'),
-            // actions: require('./actions'),
+            getters: require('./getters').default,
+            actions: require('./actions').default,
             mutations: require('./mutations').default,
             modules: {
                 user: require('./modules/user').default

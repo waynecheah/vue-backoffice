@@ -1,10 +1,16 @@
 import axios from 'axios'
 import Vue from 'vue'
 
-const http = axios.create({
-    baseURL: 'https://api.symple.my/api',
-    headers: { 'X-App-Name': 'Vue App' }
-});
+const auth    = localStorage.getItem(`user/payload`);
+const baseURL = 'https://api.symple.my/api';
+let headers = { 'X-App-Name': 'Vue App' };
+
+if (auth) {
+    const { accessToken='' } = JSON.parse(auth) || {};
+    if (accessToken) headers.Authorization = accessToken;
+}
+
+const http = axios.create({ baseURL, headers });
 Vue.prototype.$http = http;
 
 http.interceptors.response.use(response => {

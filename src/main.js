@@ -8,9 +8,9 @@ import App from './App'
 import router from './app.routes'
 import store from './store'
 
-Vue.use(VueMaterial);
-//Vue.use(VueMaterial.mdSidenav);
-//Vue.use(VueMaterial.mdToolbar);
+//Vue.use(VueMaterial);
+Vue.use(VueMaterial.MdCore);
+Vue.use(VueMaterial.MdSnackbar);
 Vue.use(Vuetify);
 
 

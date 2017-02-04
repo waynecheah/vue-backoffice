@@ -18,7 +18,8 @@ export default [
                     breadcrumb: 'User Form',
                     canActivate: true,
                     title
-                }
+                },
+                props: true
             },
             {
                 path: 'list',

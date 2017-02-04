@@ -1,6 +1,7 @@
 import http from '../../http'
 
 
+const namespaced = 'user';
 const state = {
     _id: '',
     data: {},
@@ -12,7 +13,7 @@ const getters = {
     getAccessToken: state => state.token,
 
     getLocalPayload () {
-        const json = localStorage.getItem('user/payload');
+        const json = localStorage.getItem(`${namespaced}/payload`);
         return (json) ? JSON.parse(json) : null;
     },
 
@@ -34,16 +35,21 @@ const actions = {
     },
 
     test ({ commit }, payload) {
-        console.log('[DISPATCHED] user/test');
+        console.log(`[DISPATCHED] ${namespaced}/test`);
         setTimeout(()=>{
-            console.log('[ACTION] user/test -', payload);
+            console.log(`[ACTION] ${namespaced}/test -`, payload);
         }, 800);
     }
 };
 
 const mutations = {
     login (state, payload) {
+        console.log(`[MUTATION] ${namespaced}/login`);
         const { accessToken='', type='', user_id='' } = payload || {};
+
+        if (accessToken)
+            http.defaults.headers.common.Authorization = accessToken;
+
         state._id   = user_id;
         state.data  = payload;
         state.token = accessToken;
@@ -51,8 +57,12 @@ const mutations = {
     },
 
     logout (state) {
-        console.log('[MUTATION] user/logout');
-        localStorage.removeItem('user/payload');
+        console.log(`[MUTATION] ${namespaced}/logout`);
+        localStorage.removeItem(`${namespaced}/payload`);
+
+        http.defaults.headers.common.Authorization = null;
+        delete http.defaults.headers.common.Authorization;
+
         state._id   = '';
         state.data  = {};
         state.token = '';
@@ -60,7 +70,7 @@ const mutations = {
     },
 
     setLocalPayload (state, payload) {
-        localStorage.setItem('user/payload', JSON.stringify(payload));
+        localStorage.setItem(`${namespaced}/payload`, JSON.stringify(payload));
     }
 };
 

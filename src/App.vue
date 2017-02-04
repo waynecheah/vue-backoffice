@@ -37,25 +37,8 @@
         .contentWrapper
           gl-breadcrumb
           router-view
-          p 1
-          p 2
-          p 3
-          p 4
-          p 5
-          p 6
-          p 7
-          p 8
-          p 9
-          p 10
-          p 11
-          p 12
-          p 13
-          p 14
-          p 15
-          p 16
-          p 17
-          p 18
-          p 19
+
+    glSnackbars
     
 
     //md-toolbar.md-dense
@@ -85,6 +68,7 @@ import Vue from 'vue'
 
 import glNavBar from './components/layout/navbar.vue'
 import glBreadcrumb from './components/shared/navigations/breadcrumb.vue'
+import glSnackbars from './components/shared/notifications/snackbars.vue'
 
 
 Vue.directive('accordion', {
@@ -121,7 +105,8 @@ export default {
 
     components: {
         glBreadcrumb,
-        glNavBar
+        glNavBar,
+        glSnackbars
     },
 
     data () {
@@ -221,6 +206,10 @@ a:hover
 
 body.appBody
     background-color: #eeeded
+    &.md-theme-default
+        a
+            color: #1976d2
+        background-color: #eeeded
 
 .rel
     position: relative
@@ -251,9 +240,9 @@ body.appBody
         a:focus
             outline: 0
         a:hover
-            color: #fff
+            color: #fff !important
         a
-            color: rgba(255, 255, 255, .5)
+            color: rgba(255, 255, 255, .5) !important
 
         &.mini
             max-width: 50px

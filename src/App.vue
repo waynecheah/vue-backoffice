@@ -66,7 +66,7 @@
 <script>
 import Vue from 'vue'
 
-import glNavBar from './components/layout/navbar.vue'
+//import glNavBar from './components/layout/navbar.vue'
 import glBreadcrumb from './components/shared/navigations/breadcrumb.vue'
 import glSnackbars from './components/shared/notifications/snackbars.vue'
 
@@ -105,7 +105,7 @@ export default {
 
     components: {
         glBreadcrumb,
-        glNavBar,
+        //glNavBar,
         glSnackbars
     },
 
@@ -211,10 +211,77 @@ body.appBody
             color: #1976d2
         background-color: #eeeded
 
-.rel
-    position: relative
+
+.icons-list
+    margin: 0
+    padding: 0
+    list-style: none
+    line-height: 1
+    font-size: 0
+    li
+        display: inline-block
+        font-size: 13px
+        position: relative
+        &:first-child
+            margin-left: 0
+        a.collapse
+            color: #333
+            vertical-align: middle
+            &:after
+                content: '\e9c1'
+                display: inline-block
+                font-family: 'icomoon'
+                font-size: 16px
+                line-height: 1
+                min-width: 16px
+                text-align: center
+                vertical-align: middle
+                -webkit-font-smoothing: antialiased
 .noWrap
     white-space: nowrap
+.panel
+    background-color: #fff
+    border: 1px solid transparent
+    border-radius: 3px
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)
+    color: #333
+    margin-bottom: 20px
+
+    .panel-heading
+        border-top-left-radius: 3px
+        border-top-right-radius: 3px
+        padding: 20px
+        position: relative
+        .panel-title
+            color: #999
+            font-size: 16px
+            font-weight: 500
+            text-transform: uppercase
+            .panel-subtitle
+                color: inherit
+                display: block
+                font-size: 13px
+                margin-top: 3px
+        .heading-elements
+            height: 38px
+            margin-top: -19px
+            position: absolute
+            right: 20px
+            top: 50%
+            .icons-list
+                margin-top: 11px
+    .panel-body
+        padding: 0 20px 20px
+        position: relative
+.rel
+    position: relative
+.rotate-180
+    transform: rotate(180deg)
+.text-right
+    text-align: right
+.vtop
+    vertical-align: top
+
 
 .pageContainer
     display: flex
